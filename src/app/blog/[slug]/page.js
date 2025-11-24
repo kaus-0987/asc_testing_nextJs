@@ -1,61 +1,179 @@
-// app/blog/[slug]/page.js
-import { notFound } from 'next/navigation'
-import BlogPostClient from '@/components/blog/BlogPostClient'
+import { notFound } from "next/navigation";
+import { getPostBySlug, getAllSlugs } from "@/lib/blog-data";
+import Link from "next/link";
+import { Card } from "@/components/common";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-// Example data source (replace with real fetch / CMS)
-const blogPosts = [
-  {
-    id: 1,
-    title: '10 Essential Tips for Modern Web Development in 2024',
-    subtitle: 'A comprehensive guide to building better web applications',
-    slug: 'essential-web-development-tips-2024',
-    excerpt: 'Discover the latest best practices and tools that are shaping modern web development...',
-    content: `
-      <h2>Introduction</h2>
-      <p>Modern web development is constantly evolving, and staying up-to-date with the latest practices is crucial...</p>
-      <h2>1. Embrace Modern JavaScript Features</h2>
-      <p>The JavaScript ecosystem continues to evolve with new features and improvements...</p>
-    `,
-    category: 'web-development',
-    author: {
-      name: 'Sarah Johnson',
-      avatar: '/images/authors/sarah-64.png',
-      role: 'Senior Developer',
-      bio: 'Full-stack developer with 8+ years of experience in building scalable web applications.',
-    },
-    publishedAt: '2024-02-15',
-    readTime: '8 min read',
-    thumbnail: '/images/blog/featured-1200x600.jpg',
-    tags: ['React', 'Performance', 'Best Practices'],
-    engagement: { views: 1520, comments: 23, shares: 45, bookmarks: 67, likes: 89 },
-  },
-]
 
+// This tells Next.js which pages to pre-render
 export async function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }))
+  const slugs = getAllSlugs();
+  return slugs.map((s) =>
+    typeof s === "string" ? { slug: s } : { slug: s.slug }
+  );
 }
 
+
 export async function generateMetadata({ params }) {
-  const post = blogPosts.find((p) => p.slug === params.slug)
-  if (!post) return { title: 'Post Not Found' }
+  // await params in case it's a Promise
+  const resolvedParams = await params;
+  const slug = Array.isArray(resolvedParams.slug)
+    ? resolvedParams.slug.join("/")
+    : resolvedParams.slug;
+
+  const post = getPostBySlug(slug);
+  if (!post) {
+    notFound();
+  }
 
   return {
-    title: `${post.title} | Your Company Blog`,
-    description: post.excerpt || post.subtitle,
+    title: `${post.title} | AnantSoftComputing`,
+    description: post.excerpt,
     openGraph: {
       title: post.title,
-      description: post.excerpt || post.subtitle,
+      description: post.excerpt,
       images: [post.thumbnail],
-      type: 'article',
+      type: "article",
       publishedTime: post.publishedAt,
       authors: [post.author.name],
     },
-  }
+  };
 }
 
-export default function BlogPostPage({ params }) {
-  const post = blogPosts.find((p) => p.slug === params.slug)
-  if (!post) notFound()
+export default async function BlogPostPage({ params }) {
+  const resolvedParams = await params;
+  const slug = Array.isArray(resolvedParams.slug)
+    ? resolvedParams.slug.join("/")
+    : resolvedParams.slug;
 
-  return <BlogPostClient post={post} />
+  const post = getPostBySlug(slug);
+  if (!post) {
+    notFound();
+  }
+
+  return (
+    <div className="min-h-screen bg-white py-12">
+      {/* Back Button */}
+      <div className="container mx-auto px-4 mt-8">
+        <nav>
+          <Link
+            href="/blog"
+            className="text-primary-600 hover:text-primary-800 font-medium inline-flex items-center"
+          >
+            ← Back to Blog
+          </Link>
+        </nav>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <article className="pb-20">
+            {/* Title */}
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              {post.title}
+            </h1>
+
+            {/* Meta */}
+            <div className="flex flex-wrap items-center gap-4 mb-8 text-gray-600 text-sm">
+              <span>{post.publishedAt}</span>
+              <span>•</span>
+              <span>{post.readTime}</span>
+              <span>•</span>
+              <span className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-medium">
+                {post.category}
+              </span>
+            </div>
+
+            {/* Thumbnail */}
+            <img
+              src={post.thumbnail}
+              alt={post.title}
+              className="w-full h-72 md:h-96 object-cover rounded-xl shadow-sm mb-10"
+            />
+
+            {/* Content */}
+            <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed">
+              <p className="mb-8">{post.excerpt}</p>
+            </div>
+
+            <Card className="p-8 shadow-md border rounded-xl">
+              <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed prose-headings:mt-10 prose-headings:mb-6 prose-li:mb-3 prose-img:rounded-xl">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    // Paragraphs: add vertical spacing and relaxed leading
+                    p: ({ node, children, ...props }) => (
+                      <p
+                        className="mb-6 text-gray-800 leading-relaxed"
+                        {...props}
+                      >
+                        {children}
+                      </p>
+                    ),
+                    // Headings: add spacing and preserve sizes
+                    h1: ({ node, children, ...props }) => (
+                      <h1
+                        className="text-2xl md:text-3xl font-bold mt-8 mb-4"
+                        {...props}
+                      >
+                        {children}
+                      </h1>
+                    ),
+                    h2: ({ node, children, ...props }) => (
+                      <h2
+                        className="text-xl md:text-2xl font-semibold mt-8 mb-3"
+                        {...props}
+                      >
+                        {children}
+                      </h2>
+                    ),
+                    h3: ({ node, children, ...props }) => (
+                      <h3
+                        className="text-lg font-semibold mt-6 mb-2"
+                        {...props}
+                      >
+                        {children}
+                      </h3>
+                    ),
+                    // Lists: add spacing between list items
+                    li: ({ node, children, ...props }) => (
+                      <li className="mb-2 ml-6 list-disc" {...props}>
+                        {children}
+                      </li>
+                    ),
+                    // Images: make sure images have margin
+                    img: ({ node, ...props }) => (
+                      // className can be merged as required
+                      <img className="rounded-lg my-6" {...props} />
+                    ),
+                    // Code blocks (optional)
+                    code: ({ node, inline, className, children, ...props }) =>
+                      inline ? (
+                        <code
+                          className="bg-gray-100 px-1 rounded text-sm"
+                          {...props}
+                        >
+                          {children}
+                        </code>
+                      ) : (
+                        <pre
+                          className="bg-gray-900 text-white p-4 rounded overflow-x-auto"
+                          {...props}
+                        >
+                          <code>{children}</code>
+                        </pre>
+                      ),
+                  }}
+                >
+                  {post.content}
+                </ReactMarkdown>
+              </div>
+            </Card>
+          </article>
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -1,4 +1,3 @@
-// src/components/blog/BlogPostClient.jsx
 'use client'
 
 import React, { useEffect, useState } from 'react'
@@ -62,6 +61,21 @@ export default function BlogPostClient({ post }) {
     }
   }
 
+  // Add mock content for demonstration
+  const mockContent = `
+    <h2>Introduction</h2>
+    <p>${post.excerpt}</p>
+    
+    <h2>Key Insights</h2>
+    <p>This article explores the latest trends and best practices in ${post.category}. We'll dive deep into the strategies that can help your business succeed in today's competitive landscape.</p>
+    
+    <h2>Main Content</h2>
+    <p>${post.excerpt} The full article would contain detailed analysis, case studies, and practical tips that you can implement immediately.</p>
+    
+    <h2>Conclusion</h2>
+    <p>Stay ahead of the curve by implementing these strategies in your organization. For more insights, check out our other articles in the ${post.category} category.</p>
+  `
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-gradient-to-b from-primary-50 via-white to-secondary-50">
       {/* Reading progress */}
@@ -83,16 +97,14 @@ export default function BlogPostClient({ post }) {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
             <div className="flex flex-wrap gap-3 mb-6">
-              {post.tags.map(tag => (
-                <span key={tag} className="px-4 py-1.5 bg-primary-100/80 text-primary-600 rounded-full text-sm font-medium flex items-center gap-2 hover:bg-primary-200/80 transition-colors cursor-pointer">
-                  <Tag className="w-4 h-4" />
-                  {tag}
-                </span>
-              ))}
+              <span className="px-4 py-1.5 bg-primary-100/80 text-primary-600 rounded-full text-sm font-medium flex items-center gap-2 hover:bg-primary-200/80 transition-colors cursor-pointer">
+                <Tag className="w-4 h-4" />
+                {post.category}
+              </span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark mb-4 leading-tight">{post.title}</h1>
-            <p className="text-xl text-dark-light mb-8">{post.subtitle}</p>
+            <p className="text-xl text-dark-light mb-8">{post.excerpt.substring(0, 150)}...</p>
 
             <div className="flex flex-wrap items-center gap-8 mb-12">
               <div className="flex items-center gap-4">
@@ -104,14 +116,13 @@ export default function BlogPostClient({ post }) {
                 </div>
                 <div>
                   <div className="font-semibold text-dark">{post.author.name}</div>
-                  <div className="text-sm text-dark-light">{post.author.role}</div>
+                  <div className="text-sm text-dark-light">Software Expert</div>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-6 text-sm text-dark-light">
                 <span className="flex items-center gap-2"><Calendar className="w-4 h-4" />{post.publishedAt}</span>
                 <span className="flex items-center gap-2"><Clock className="w-4 h-4" />{post.readTime}</span>
-                <span className="flex items-center gap-2"><Eye className="w-4 h-4" />{post.engagement.views.toLocaleString()} views</span>
               </div>
             </div>
 
@@ -126,7 +137,7 @@ export default function BlogPostClient({ post }) {
           <div className="flex gap-12">
             <motion.article initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl mx-auto">
               <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 p-8 mb-12">
-                <div className="prose prose-lg prose-gray max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div className="prose prose-lg prose-gray max-w-none" dangerouslySetInnerHTML={{ __html: mockContent }} />
               </div>
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-gradient-to-br from-primary-50 via-white to-secondary-50 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -134,10 +145,9 @@ export default function BlogPostClient({ post }) {
                   <img src={post.author.avatar} alt={post.author.name} className="w-16 h-16 rounded-full ring-4 ring-white shadow-md" />
                   <div>
                     <h3 className="text-xl font-bold text-dark mb-2">About {post.author.name}</h3>
-                    <p className="text-dark-light">{post.author.bio}</p>
+                    <p className="text-dark-light">Expert in software development and technology trends with years of experience in the industry.</p>
                     <div className="flex gap-4 mt-4">
-                      <button className="px-4 py-2 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg">Follow</button>
-                      <button className="px-4 py-2 bg-white hover:bg-gray-50 text-dark-light rounded-lg border border-gray-200">View Profile</button>
+                      <Link href="/blog" className="px-4 py-2 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg">More Articles</Link>
                     </div>
                   </div>
                 </div>
