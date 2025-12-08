@@ -47,25 +47,24 @@ const Contact = () => {
       icon: <FaMapMarkerAlt />,
       title: 'Visit Us',
       details: [
-        'Anant Soft Computing',
-        'Tech Park, Innovation Street',
-        'Ahmedabad, Gujarat 380015'
+        '1C, Satyam Apartment',
+        'Aradhana Society, Vishwas Colony,',
+        'Alkapuri',
+        'Vadodara, Gujarat 390005'
       ]
     },
     {
       icon: <FaPhone />,
       title: 'Call Us',
       details: [
-        '+91 98765 43210',
-        '+91 98765 43211'
+        '+91 9638544455',
       ]
     },
     {
       icon: <FaEnvelope />,
       title: 'Email Us',
       details: [
-        'info@anantsoft.com',
-        'support@anantsoft.com'
+        'support@anantsoftcomputing.com',
       ]
     },
     {
@@ -73,7 +72,6 @@ const Contact = () => {
       title: 'Working Hours',
       details: [
         'Monday - Friday: 9:00 AM - 6:00 PM',
-        'Saturday: 9:00 AM - 2:00 PM'
       ]
     }
   ];
