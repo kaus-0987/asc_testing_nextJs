@@ -5,9 +5,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-import { Container, Button, Card, Badge } from "@/components/common";
-import { CTA } from "@/components/sections";
-import CareerApplyForm from "@/components/sections/CareerApplyForm";
+import { Container, Button, Card, Badge } from "../../components/common";
+import { CTA } from "../../components/sections";
+import CareerApplyForm from "../../components/sections/CareerApplyForm";
 
 import {
   FaBriefcase,

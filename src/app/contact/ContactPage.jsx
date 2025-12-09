@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Container, Input, Button, Card } from '@/components/common';
+import { Container, Input, Button, Card } from '../../components/common';
 
 const API_ENDPOINT = 'https://anantsoftcomputing.com/asc/api/contact/enquiries/';
 

@@ -1,6 +1,6 @@
 import './globals.css'       
-import Providers from '@/providers/Providers'
-import { Navbar, Footer } from '@/components/layout'
+import Providers from '../providers/Providers'
+import { Navbar, Footer } from '../components/layout'
 
 export const metadata = {
   title: 'Anant Soft Computing',

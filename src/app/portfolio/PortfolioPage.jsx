@@ -7,8 +7,8 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { Container, Card, Badge, Button } from "@/components/common";
-import { CTA } from "@/components/sections";
+import { Container, Card, Badge, Button } from "../../components/common";
+import { CTA } from "../../components/sections";
 import { FaTimes, FaGlobe, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import Image from "next/image";
 

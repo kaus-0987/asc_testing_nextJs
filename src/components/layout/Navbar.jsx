@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Container } from '@/components/common'
+import { Container } from '../common'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)

@@ -1,11 +1,11 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Container, Button, Card, Badge } from '@/components/common';
-import { CTA } from '@/components/sections';
+import { Container, Button, Card, Badge } from '../../../components/common';
+import { CTA } from '../../../components/sections';
 import { FaSearch, FaChartLine, FaTools, FaCogs, FaRocket } from 'react-icons/fa';
 import Image from 'next/image';
-import BlogCarousel from '@/components/sections/BlogCarousel';
+import BlogCarousel from '../../../components/sections/BlogCarousel';
 
 const SEOService = () => {
   const { scrollY } = useScroll();
@@ -300,7 +300,8 @@ const SEOService = () => {
       </section>
 
       {/* Blog Carousel Section */}
-      <BlogCarousel />
+      
+      {/* <BlogCarousel /> */}
 
       <CTA />
     </motion.div>

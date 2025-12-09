@@ -1,5 +1,5 @@
 // app/page.js
-import Home from "@/components/home/Home" // path to your React Home component
+import Home from "../components/home/Home"; 
 
 export const metadata = {
   title: "AnantSoftComputing – Custom Software Development & IT Services Company",

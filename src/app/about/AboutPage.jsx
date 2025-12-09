@@ -9,8 +9,8 @@ import {
   FaHandshake
 } from 'react-icons/fa'
 
-import { Container, Badge, Card } from '@/components/common'
-import { Stats, CTA } from '@/components/sections'
+import { Container, Badge, Card } from '../../components/common'
+import { Stats, CTA } from '../../components/sections'
 import Image from 'next/image'
 
 export default function AboutPage() {

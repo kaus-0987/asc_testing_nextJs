@@ -11,7 +11,7 @@ import {
   Stats,
   CTA,
   Contact
-} from '@/components/sections'  
+} from '../sections'  
 
 import HorizontalTagsMarquee from '../sections/HorizontalTagsMarquee'
 import ProjectsGrid from '../sections/ProjectsGrid'

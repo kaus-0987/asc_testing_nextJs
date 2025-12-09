@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { getPostBySlug, getAllSlugs } from "@/lib/blog-data";
+import { getPostBySlug, getAllSlugs } from "../../../lib/blog-data";
 import Link from "next/link";
-import { Card } from "@/components/common";
+import { Card } from "../../../components/common";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 

@@ -3,8 +3,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Container, Card, Button } from "@/components/common";
-import { CTA, Testimonials } from "@/components/sections";
+import { Container, Card, Button } from "../../components/common";
+import { CTA, Testimonials } from "../../components/sections";
 import Image from "next/image";
 import {
   FaSearch,
@@ -20,6 +20,7 @@ import {
   FaAward,
   FaHandshake,
 } from "react-icons/fa";
+import Link from "next/link";
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
@@ -343,19 +344,19 @@ const Services = () => {
             </p>
 
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <button
+              <Link href={`/contact`}
                 className="inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 transform hover:scale-102 disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gradient-to-r from-primary-400 to-primary-600 hover:from-primary-500 hover:to-primary-700 text-white shadow-lg shadow-primary-200/30 focus:ring-primary-400 px-8 py-4 text-lg"
                 tabIndex={0}
               >
                 <span className="flex items-center">Schedule Consultation</span>
-              </button>
+              </Link>
 
-              <Button
+              <Link href={`/portfolio`}
                 className="inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 transform hover:scale-102 disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 border-2 border-primary-400 text-primary-600 hover:bg-primary-50 hover:border-primary-500 focus:ring-primary-400 px-8 py-4 text-lg"
                 tabIndex={0}
               >
                 <span className="flex items-center">View Portfolio</span>
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

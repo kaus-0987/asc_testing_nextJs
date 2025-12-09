@@ -2,8 +2,8 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Container, Button, Card, Badge } from '@/components/common';
-import { CTA } from '@/components/sections';
+import { Container, Button, Card, Badge } from '../../../components/common';
+import { CTA } from '../../../components/sections';
 import { 
   FaCode, 
   FaCogs, 
